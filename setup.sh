@@ -203,7 +203,8 @@ mkdir ~/.ssh
 cat ~/myRSAkey.pub >> ~/.ssh/authorized_keys
 chmod 400 ~/.ssh/authorized_keys
 ssh-keyscan -H `hostname` >> ~/.ssh/known_hosts
-sed -i 's/.*PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
+#deactivated for being able to ssh from local
+#sed -i 's/.*PermitRootLogin.*/PermitRootLogin without-password/' /etc/ssh/sshd_config
 systemctl restart sshd
 
 echo "-- Start CM, it takes about 2 minutes to be ready"
