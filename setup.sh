@@ -229,6 +229,7 @@ sed -i "s/YourPrivateIP/`hostname -I | tr -d '[:space:]'`/g" ~/OneNodeCDHCluster
 sed -i "s#YourDockerDevice#$DOCKERDEVICE#g" ~/OneNodeCDHCluster/$TEMPLATE
 
 sed -i "s/YourHostname/`hostname -f`/g" ~/OneNodeCDHCluster/create_cluster.py
+echo "`hostname -I | tr -d '[:space:]'` cdsw.$PUBLIC_IP.nip.io *.cdsw.$PUBLIC_IP.nip.io consoles.cdsw.$PUBLIC_IP.nip.io livelog.cdsw.$PUBLIC_IP.nip.io" >> /etc/hosts 
 
 python ~/OneNodeCDHCluster/create_cluster.py $TEMPLATE
 
@@ -237,3 +238,7 @@ service efm start
 service minifi start
 
 echo "-- At this point you can login into Cloudera Manager host on port 7180 and follow the deployment of the cluster"
+
+echo "put DNS resolution in your /etc/hosts: "
+echo 'echo "'`hostname -i | tr -d '[:space:]'`' cdsw.'$PUBLIC_IP'.nip.io *.cdsw.'$PUBLIC_IP'.nip.io consoles.cdsw.'$PUBLIC_IP'.nip.io livelog.cdsw.'$PUBLIC_IP'.nip.io" | sudo tee -a /etc/hosts'
+
